@@ -47,18 +47,18 @@ def all_out():
     # wait 10s with sleep sintead of threading.Timer, so we can use daemon
     print('*** We wachten 10 sec **')
     time.sleep(10)
-    starttime = time.time()
+    start_time = time.time()
     while True:
-        if (time.time() - starttime) > 5:
+        if (time.time() - start_time) > 5:
             print('*** We zetten alles uit **')
-            starttime = time.time()
+            start_time = time.time()
             DataRepository.update_status_alle_lampen(0)
             status = DataRepository.read_status_lampen()
             socketio.emit('B2F_alles_uit', {
                 'status': "lampen uit"})
             socketio.emit('B2F_status_lampen', {'lampen': status})
             GPIO.output(ledPin, False)
-            starttime = time.time()
+            start_time = time.time()
 
 
 def start_thread():
